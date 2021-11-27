@@ -5,8 +5,8 @@
 <!-- toc -->
 - `dags/transform_data_dag.py`: Consists of airflow DAG 
 - `data`: 
-   - 'raw_data'
-   - 'processed_data'
+   - `raw_data\`
+   - `processed_data\`
 - `spark`: python files containing dag tasks 
   - `merge_cols_and_save_file.py`
   - `read_file_and_drop_nan_names.py`

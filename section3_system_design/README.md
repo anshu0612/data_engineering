@@ -9,10 +9,6 @@
 ### AWS Data Infrastructure for low-latency large scale image processing, analytics and storage
 ![Model](system_design_aws.png)
 
-he company also has a separate web application which provides . The company’s software engineers have already some code written to process the images. The company would like to save processed images for a minimum of 7 days for archival purposes. Ideally, the company would also want to be able to have some Business Intelligence (BI) on key statistics including number and type of images processed, and by which customers.
-
-Produce a system architecture diagram (e.g. Visio, Powerpoint) using any of the commercial cloud providers' ecosystem to explain your design. Please also indicate clearly if you have made any assumptions at any point.
-
 ### Services
 -  Company's `Virtual Private Network` (VPC): virtual network for running instances
 - `Amazon Kinesis Data Stream`: low latency streaming ingestion of the image data from web application and stream of images
@@ -27,9 +23,13 @@ Produce a system architecture diagram (e.g. Visio, Powerpoint) using any of the 
 - `Amazon Glacier`: For archiving the processed image data
 
 ### Assumptions 
-- Images can be upto 1MB in size. Kinesis Data Streams can handle records upto 1MB
+- Access to companies image data
+- Company software engineer provided the code to process images
+- Web application is visited by millions of people every day and data generated in petabyte scale
+- Images can be upto 1MB in size and in format supported by AWS S3. Kinesis Data Streams can handle records upto 1MB
+- Company expected low-latency of data processing
 - Company has some customer data stored in S3 bucker (see reference data in the diagram) for querying
-- For security the company has role-based access to the stored data
+- Company has dozens of teams and for security the company has role-based access to the stored data 
 
 ### Extra insights
 - `Amazon Glue Crawler`, `Amazon Athena` and `Amazon Quicksight` can be used for analytics and visualizations on a dashboard for Business Intelligence.

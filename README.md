@@ -39,9 +39,9 @@ The individual README.md files are provided for each section.
 │   |    ├── dash_component_covid19_cases.png
 │   |    ├── README.md
 │   ├── section5_ml
-│   |    ├── README.md
 │   |    ├── predict_car_price.ipynb
 │   |    ├── predict_car_price.pdf
 │   |    ├── data
 |   |    |    ├── car.data
+│   |    ├── README.md
 ├──README.md

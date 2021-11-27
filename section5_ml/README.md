@@ -7,3 +7,5 @@ https://github.com/yunhanfeng/predictive_prac2_car_evaluation/blob/master/Predic
 https://github.com/vgaurav3011/Car-Evaluation-Analysis/blob/master/app.py
 
 https://github.com/sonarsushant/Car-Evaluation-Dataset-Classification/blob/master/Car%20Evaluation%20Dataset.ipynb
+
+jupyter nbconvert --execute --to pdf notebook.ipynb

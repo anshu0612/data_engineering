@@ -1,4 +1,10 @@
-# Data Engineering 
+# Data Engineering Technical Assessment
+
+-  data pipelines
+-  databases
+-  system design
+-  charts & APIs
+-  machine learning
 
 The individual README.md files are provided for each section. 
 
@@ -39,5 +45,3 @@ The individual README.md files are provided for each section.
 │   |    ├── data
 |   |    |    ├── car.data
 ├──README.md
-......
-```

@@ -1,28 +1,32 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, max
-import datetime
 import sys
+from pyspark.sql import SparkSession
+import pyspark.sql.functions as F
 
-sparkSession = SparkSession.builder \
-    .config("spark.driver.maxResultSize", "2000m") \
-    .config("spark.sql.shuffle.partitions", 4) \
+# create spark session
+spark = SparkSession.builder \
     .getOrCreate()
 
 
-def check_lag(delta_path: str, timestamp_column: str, threshold_in_min: int):
-    df = sparkSession.read.format("delta").load(delta_path)
-    latest_ts = df.select(max(col(timestamp_column))).first()[0]
-    now = datetime.datetime.now()
-    lag = now-latest_ts
-    lag_in_min = divmod(lag.total_seconds(), 60)[0]
-    sparkSession.stop()
+def split_names(data_path: str):
+    # read processed csv file with dropped nan names
+    df = spark.read.format("csv").option("header", "true").load(
+        data_path + "/raw_data/dataset_v1.csv")
+    # split name into first_name, last_name
+    split_name_col = F.split(df['name'], ' ')
+    df = df.withColumn('first_name', split_name_col.getItem(0))
+    df = df.withColumn('last_name', split_name_col.getItem(1))
+
+    # save only the first_name amd last_name columns
+    df = df.select("first_name", "last_name")
+
+    df.coalesce(1).write.format('com.databricks.spark.csv').save(
+        data_path + "/raw_data/dataset_name.csv", header='true')
+    spark.stop()
 
 
 def main():
-    delta_path = sys.argv[1]
-    timestamp_column = sys.argv[2]
-    threshold_in_min = int(sys.argv[3])
-    check_lag(delta_path, timestamp_column, threshold_in_min)
+    file_path = sys.argv[1]
+    split_names(file_path)
 
 
 if __name__ == '__main__':

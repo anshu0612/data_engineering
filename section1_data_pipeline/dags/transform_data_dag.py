@@ -4,6 +4,10 @@ from airflow import DAG
 from airflow.models import Variable
 from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
 
+# path to data
+DATA_PATH = "/Users/anshu/Work/Code/Projects/data_engineering/section1_data_pipeline/data"
+# pyspark sql dependency
+PYSPARK_SQL = "io.delta:delta-core_2.12:0.7.0,org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0"
 
 pyspark_app_home = Variable.get("PYSPARK_APP_HOME")
 
@@ -19,7 +23,7 @@ default_args = {
     'retry_delay': timedelta(minutes=1)
 }
 
-with DAG(dag_id="project",
+with DAG(dag_id="data-transform",
          # run this dag at 1 AM interval daily
          schedule_interval='0 1 * * *',
          default_args=default_args, catchup=False) as dag:
@@ -32,11 +36,11 @@ with DAG(dag_id="project",
                                                        executor_cores=2,
                                                        executor_memory='5g',
                                                        driver_memory='5g',
+                                                       packages=PYSPARK_SQL,
                                                        name='read_file_and_drop_nan_names',
                                                        dag=dag,
                                                        # location of the file
-                                                       application_args=[
-                                                           "/Users/anshu/Work/Code/Projects/data_engineering/section1_data_pipeline/data"])
+                                                       application_args=[DATA_PATH])
 
     # task - submitting spark job to split name
     split_names = SparkSubmitOperator(task_id='split_names',
@@ -46,10 +50,10 @@ with DAG(dag_id="project",
                                       executor_cores=2,
                                       executor_memory='5g',
                                       driver_memory='5g',
+                                      packages=PYSPARK_SQL,
                                       name='split_names',
                                       dag=dag,
-                                      application_args=[
-                                          "/Users/anshu/Work/Code/Projects/data_engineering/section1_data_pipeline/data"]
+                                      application_args=[DATA_PATH]
                                       )
 
     # task - submitting spark job to remove prepended zeroes and and add above_100
@@ -60,10 +64,11 @@ with DAG(dag_id="project",
                                                                 executor_cores=2,
                                                                 executor_memory='5g',
                                                                 driver_memory='5g',
+                                                                packages=PYSPARK_SQL,
                                                                 name='remove_prepended_zeroes_add_above_100',
                                                                 dag=dag,
                                                                 application_args=[
-                                                                    "/Users/anshu/Work/Code/Projects/data_engineering/section1_data_pipeline/data"]
+                                                                    DATA_PATH]
                                                                 )
 
     # task - submitting spark job to merge prepended zeroes and and add above_100
@@ -74,10 +79,10 @@ with DAG(dag_id="project",
                                                    executor_cores=2,
                                                    executor_memory='5g',
                                                    driver_memory='5g',
+                                                   packages=PYSPARK_SQL,
                                                    name='merge_cols_and_save_file',
                                                    dag=dag,
-                                                   application_args=[
-                                                       "/Users/anshu/Work/Code/Projects/data_engineering/section1_data_pipeline/data/"]
+                                                   application_args=[DATA_PATH]
                                                    )
 
 # airflow pipeline

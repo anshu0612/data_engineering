@@ -7,7 +7,7 @@
 - `covid19_cases.pdf`: Notebook to pdf
 <!-- tocstop -->
 
-### Dashboard component - COVID-19 cases in Singapore overtime
+### Interactive dashboard component - COVID-19 cases in Singapore overtime
 ![Model](dash_component_covid19_cases.png)
 
 ### Extra insights:

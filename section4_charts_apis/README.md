@@ -2,7 +2,7 @@
 
 ### Overview of the files: 
 <!-- toc -->
-- `dash_component_covid19_cases.png`: Dashboard COVID-19 cases component
+- `dash_component_covid19_cases.png`: Dashboard COVID-19 cases component image
 - `covid19_cases.ipynb`:  Notebook containing code
 - `covid19_cases.pdf`: Notebook to pdf
 <!-- tocstop -->

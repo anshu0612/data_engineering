@@ -3,7 +3,7 @@
 
 ### Overview of the files: 
 <!-- toc -->
-- `dags/transform_data_dag.py`: Consists of airflow DAG 
+- `dags\transform_data_dag.py`: Consists of airflow DAG 
 - `data`: 
    - `raw_data\`
    - `processed_data\`

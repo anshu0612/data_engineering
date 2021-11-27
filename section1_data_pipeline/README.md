@@ -18,6 +18,11 @@
 ### Data Pipeline
 ![Model](data_pipeline.png)
 
+Processing large scale data within Airflow tasks does not scale and should only be used in cases where the data are limited in size. A better option for scalability is to offload any heavy-duty processing to a Spark, then use Airflow to orchestrate the jobs. 
+
+In this data pipeline, the Airflow tasks are run by Spark. The data manipulation is accomplished using PySpark SQL. 
+
+
 #### The Airflow DAG -- executed at 1 am daily -- consists of 4 tasks:
 
 - Task 1 **read_file_and_drop_nan_names**: Reads csv from the data path (from `data\raw_data`) and removes rows with `name` as NaN. The processed csv is then saved as a new file - `dataset_v1.csv`

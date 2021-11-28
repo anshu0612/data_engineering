@@ -1,3 +1,6 @@
+-- Please check the README for the assumptions regrading the queries
+
+-- Query 1: list of our customers and their spending.
 SELECT c.customer_name, coalesce(sum(price), 0) AS spending 
 FROM 
   Manufacturers AS m 
@@ -9,7 +12,10 @@ GROUP BY
 ORDER BY 
   spending DESC;
 
+-- Query 2 top 3 car manufacturers that customers bought by sales (quantity) and 
+-- the sales number for it in the current month
 
+-- get top 3 sales 
 WITH Top_3_Sales_Count AS (
   SELECT count(t.car_serial_number) 
   FROM 

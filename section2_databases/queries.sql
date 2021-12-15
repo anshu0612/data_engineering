@@ -1,10 +1,9 @@
 -- Please check the README for the assumptions regrading the queries
 
 -- Query 1: list of our customers and their spending.
-SELECT c.customer_name, coalesce(sum(price), 0) AS spending 
+SELECT c.customer_name, coalesce(sum(r.price), 0) AS spending 
 FROM 
-  Manufacturers AS m 
-  JOIN Cars AS r ON m.manufacturer_id = r.manufacturer_id 
+  Cars AS r
   JOIN Transactions AS t ON r.serial_number = t.car_serial_number 
   RIGHT JOIN Customers AS c ON c.customer_id = t.customer_id 
 GROUP BY 

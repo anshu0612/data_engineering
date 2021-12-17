@@ -17,7 +17,7 @@
 - A customer with no transaction is returned with a `zero` spending. Although, it is highly unlikely to have a customer with no transaction. 
 
 ##### 2. I want to find out the top 3 car manufacturers that customers bought by sales (quantity) and the sales number for it in the current month
-- `top 3` by sales - Manufactureres having sales INCLUDED in the 3 highest sales (with skipped rankings)
+- `top 3` by sales - Manufactureres having sales INCLUDED in the 3 highest sales (i.e. ranked among {1, 2, 3})
 - Query always returns at least 3 manufacturers by sales
 - Examples: 
 ```
